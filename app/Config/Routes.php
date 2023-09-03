@@ -29,7 +29,15 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Home::index');
+// $routes->get('/', 'Home::index');
+$routes->get('/', 'Dashboard::index', ['filter'=>'loginFilter']);
+
+$routes->get('/auth', 'Auth::index', ['filter'=>'authFilter']);
+$routes->post('/auth/login', 'Auth::login');
+$routes->get('/auth/logout', 'Auth::logout');
+
+$routes->get('/kegiatan', 'Kegiatan::index', ['filter'=>'loginFilter']);
+$routes->post('/kegiatan/save', 'Kegiatan::save', ['filter'=>'loginFilter']);
 
 /*
  * --------------------------------------------------------------------
