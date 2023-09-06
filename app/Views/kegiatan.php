@@ -13,8 +13,8 @@
     </button>
 
     <!-- Flash Data -->
-    <?php if (session()->getFlashdata('savemessage')) : ?>
-        <?= session()->getFlashdata('savemessage'); ?>
+    <?php if (session()->getFlashdata('message')) : ?>
+        <?= session()->getFlashdata('message'); ?>
     <?php endif; ?>
 
     <!-- Modal Tambah Kegiatan -->
@@ -56,14 +56,25 @@
 
                             <div class="row mb-3">
                                 <div class="col-4">
+                                    <label for="kodemataanggaran" class="form-label">Kode Mata Anggaran</label>
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" class="form-control" id="kodemataanggaran" name="kodemataanggaran" aria-describedby="kodemataanggaran" required>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-4">
                                     <label for="satuankegiatan" class="form-label">Satuan Kegiatan</label>
                                 </div>
                                 <div class="col-8">
                                     <select id="satuankegiatan" name="satuankegiatan" class="form-select" required>
                                         <option value="" selected disabled>-- Pilih Satuan Kegiatan --</option>
                                         <option value="1">Dokumen</option>
-                                        <option value="2">O-P</option>
+                                        <option value="2">Blok Sensus</option>
                                         <option value="3">O-B</option>
+                                        <option value="4">O-K</option>
+                                        <option value="5">O-P</option>
                                     </select>
                                 </div>
                             </div>
@@ -121,7 +132,7 @@
 
                         <div class="d-flex justify-content-end gap-3">
                             <button type="submit" class="btn btn-primary">Submit</button>
-                            <a class="btn btn-danger" data-bs-dismiss="modal">Close</a>
+                            <a class="btn btn-secondary" data-bs-dismiss="modal">Close</a>
                         </div>
                     </form>
                 </div>
@@ -162,9 +173,9 @@
                     <?php foreach ($kegiatan as $k) : ?>
                         <tr>
                             <td><?= $no++ ?></td>
-                            <td><?= $k['subjectmatter']; ?></td>
-                            <td><?= $k['namakegiatan']; ?></td>
-                            <td><?= $k['jadwalmulai']; ?> - <?= $k['jadwalakhir']; ?></td>
+                            <td><?= $k['subjectmatter_id']; ?></td>
+                            <td><?= $k['nama_kegiatan']; ?></td>
+                            <td><?= $k['jadwal_mulai']; ?> - <?= $k['jadwal_akhir']; ?></td>
                             <td>jumlah mitra</td>
                         </tr>
                     <?php endforeach; ?>

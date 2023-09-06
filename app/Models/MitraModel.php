@@ -4,12 +4,12 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class UserModel extends Model
+class MitraModel extends Model
 {
-    protected $table      = 'user';
+    protected $table      = 'mitra';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['email', 'password', 'role_id'];
-
+    protected $allowedFields = ['sobat_id','nik', 'nama','alamat', 'email', 'jenis_kelamin'];
+    
     // Dates
     protected $useTimestamps = true;
     // protected $dateFormat    = 'datetime';

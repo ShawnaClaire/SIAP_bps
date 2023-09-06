@@ -81,12 +81,15 @@
                     </tr>
                 </tfoot>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>System Architect</td>
-                    </tr>
+                    <?php $no = 1; ?>
+                    <?php foreach ($kegiatan as $k) : ?>
+                        <tr>
+                            <td><?= $no++ ?></td>
+                            <td><?= $k['subjectmatter']; ?></td>
+                            <td><?= $k['namakegiatan']; ?></td>
+                            <td><?= $k['jadwalmulai']; ?> - <?= $k['jadwalakhir']; ?></td>
+                        </tr>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
         </div>

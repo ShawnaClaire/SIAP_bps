@@ -4,12 +4,12 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class UserModel extends Model
+class SatuanKegiatanModel extends Model
 {
-    protected $table      = 'user';
+    protected $table      = 'satuan_kegiatan';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['email', 'password', 'role_id'];
-
+    protected $allowedFields = ['satuan_kegiatan'];
+    
     // Dates
     protected $useTimestamps = true;
     // protected $dateFormat    = 'datetime';

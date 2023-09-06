@@ -20,8 +20,9 @@
                 </a>
                 <div class="collapse" id="collapseMitra" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="#">Tambah Mitra</a>
-                        <a class="nav-link" href="#">Lihat Mitra</a>
+                        <a class="nav-link" href="<?= base_url('mitra/tambahmitra'); ?>">Tambah Mitra</a>
+                        <a class="nav-link" href="<?= base_url('mitra'); ?>">Cek Mitra</a>
+                        <a class="nav-link" href="<?= base_url('mitra/alokasimitra'); ?>">Alokasi Mitra</a>
                     </nav>
                 </div>
                

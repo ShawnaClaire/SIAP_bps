@@ -4,11 +4,11 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class UserModel extends Model
+class SubjectmatterModel extends Model
 {
-    protected $table      = 'user';
+    protected $table      = 'subjectmatter';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['email', 'password', 'role_id'];
+    protected $allowedFields = ['nama_subjectmatter'];
 
     // Dates
     protected $useTimestamps = true;

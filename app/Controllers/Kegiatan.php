@@ -17,15 +17,11 @@ class Kegiatan extends BaseController
     public function index(): string
     {
         helper('form');
-
         session();
         $kegiatan = $this->kegiatanModel->findAll();
-        // $val = \Config\Services::validation()->getErrors();
-        // dd($val);
         $data = [
             'title' => 'Kegiatan',
             'kegiatan' => $kegiatan,
-            // 'validation' => validation_list_errors()
         ];
         
         return view('kegiatan', $data);
@@ -33,31 +29,19 @@ class Kegiatan extends BaseController
 
     public function save()
     {
-        // validate inputs
-        // if (!$this->validate([
-        //     'subjectmatter' => 'required',
-        //     'namakegiatan' => 'required' ,
-        //     'satuankegiatan' => 'required' ,
-        //     'honor' => 'required|numeric' ,
-        //     'bayar' => 'required' ,
-        //     'jadwalmulai' => 'required' ,
-        //     'jadwalakhir' => 'required' ,
-        // ])) {
-        //     $validation = \Config\Services::validation();
-        //     return redirect()->to('/kegiatan')->withInput()->with('validation', $validation);
-        // }
-
         $this->kegiatanModel->save([
-            'subjectmatter' => $this->request->getVar('subjectmatter'),
-            'namakegiatan' => $this->request->getVar('namakegiatan'),
-            'satuankegiatan' => $this->request->getVar('satuankegiatan'),
+            'kode_mata_anggaran' => $this->request->getVar('kode_mata_anggaran'),
+            'nama_kegiatan' => $this->request->getVar('namakegiatan'),
+            'kode_mata_anggaran' => $this->request->getVar('kodemataanggaran'),
+            'satuan_kegiatan_id' => $this->request->getVar('satuankegiatan'),
             'honor' => $this->request->getVar('honor'),
-            'bayar' => $this->request->getVar('bulanbayar'),
-            'jadwalmulai' => $this->request->getVar('jadwalmulai'),
-            'jadwalakhir' => $this->request->getVar('jadwalakhir'),
+            'bulan_bayar' => $this->request->getVar('bulanbayar'),
+            'subjectmatter_id' => $this->request->getVar('subjectmatter'),
+            'jadwal_mulai' => $this->request->getVar('jadwalmulai'),
+            'jadwal_akhir' => $this->request->getVar('jadwalakhir'),
         ]); 
 
-        session()->setFlashdata('savemessage', '<div class="alert alert-success mt-3" role="alert">
+        session()->setFlashdata('message', '<div class="alert alert-success mt-3" role="alert">
         Data kegiatan berhasil ditambahkan </div>');
 
         return redirect()->to('/kegiatan');

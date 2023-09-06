@@ -7,14 +7,14 @@ use CodeIgniter\Model;
 class KegiatanModel extends Model
 {
     protected $table      = 'kegiatan';
-    protected $primaryKey = 'idkegiatan';
-    protected $allowedFields = ['subjectmatter', 'namakegiatan', 'satuankegiatan', 'honor', 'bayar', 'jadwalmulai', 'jadwalakhir'];
+    protected $primaryKey = 'id';
+    protected $allowedFields = ['kode_mata_anggaran', 'nama_kegiatan', 'satuan_kegiatan_id', 'honor', 'bulan_bayar', 'subjectmatter_id', 'jadwal_mulai', 'jadwal_akhir'];
 
     // Dates
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
     // protected $dateFormat    = 'datetime';
-    // protected $createdField  = 'created_at';
-    // protected $updatedField  = 'updated_at';
+    protected $createdField  = 'created_at';
+    protected $updatedField  = 'updated_at';
     // protected $deletedField  = 'deleted_at';
 
     // Validation
