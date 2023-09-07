@@ -45,6 +45,10 @@ $routes->get('/mitra/tambahmitra', 'Mitra::tambahmitra', ['filter'=>'loginFilter
 $routes->post('/mitra/import', 'Mitra::import', ['filter'=>'loginFilter']);
 $routes->post('/mitra/tambahmanual', 'Mitra::tambahmanual', ['filter'=>'loginFilter']);
 $routes->get('/mitra/alokasimitra', 'Mitra::alokasimitra', ['filter'=>'loginFilter']);
+// $routes->get('/mitra/fetchKegiatan', 'Mitra::fetchKegiatan', ['filter'=>'loginFilter']);
+$routes->post('/mitra/alokasiGetKegiatan', 'Mitra::alokasiGetKegiatan', ['filter'=>'loginFilter']);
+$routes->post('/mitra/tambahalokasimanual', 'Mitra::tambahalokasimanual', ['filter'=>'loginFilter']);
+$routes->post('/mitra/importAlokasi', 'Mitra::importAlokasi', ['filter'=>'loginFilter']);
 /*
  * --------------------------------------------------------------------
  * Additional Routing

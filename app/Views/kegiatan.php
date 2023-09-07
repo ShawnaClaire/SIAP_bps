@@ -47,19 +47,28 @@
 
                             <div class="row mb-3">
                                 <div class="col-4">
-                                    <label for="namakegiatan" class="form-label">Nama Kegiatan</label>
+                                    <label for="tahunanggaran" class="form-label">Tahun Anggaran</label>
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" class="form-control" id="namakegiatan" name="namakegiatan" aria-describedby="namakegiatan" required>
+                                    <input type="text" class="form-control" id="tahunanggaran" name="tahunanggaran" aria-describedby="tahunanggaran" required maxlength="4">
                                 </div>
                             </div>
-
+                            
                             <div class="row mb-3">
                                 <div class="col-4">
                                     <label for="kodemataanggaran" class="form-label">Kode Mata Anggaran</label>
                                 </div>
                                 <div class="col-8">
                                     <input type="text" class="form-control" id="kodemataanggaran" name="kodemataanggaran" aria-describedby="kodemataanggaran" required>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-4">
+                                    <label for="uraiandetailakun" class="form-label">Uraian Detail Akun</label>
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" class="form-control" id="uraiandetailakun" name="uraiandetailakun" aria-describedby="uraiandetailakun" required>
                                 </div>
                             </div>
 
@@ -154,7 +163,7 @@
                     <tr>
                         <th>No</th>
                         <th>Subject Matter</th>
-                        <th>Nama Kegiatan</th>
+                        <th>Uraian Detail Akun</th>
                         <th>Jadwal</th>
                         <th>Jumlah Petugas Mitra</th>
                     </tr>
@@ -163,7 +172,7 @@
                     <tr>
                         <th>No</th>
                         <th>Subject Matter</th>
-                        <th>Nama Kegiatan</th>
+                        <th>Uraian Detail Akun</th>
                         <th>Jadwal</th>
                         <th>Jumlah Petugas Mitra</th>
                     </tr>
@@ -174,7 +183,7 @@
                         <tr>
                             <td><?= $no++ ?></td>
                             <td><?= $k['subjectmatter_id']; ?></td>
-                            <td><?= $k['nama_kegiatan']; ?></td>
+                            <td><?= $k['uraian_detail_akun']; ?></td>
                             <td><?= $k['jadwal_mulai']; ?> - <?= $k['jadwal_akhir']; ?></td>
                             <td>jumlah mitra</td>
                         </tr>

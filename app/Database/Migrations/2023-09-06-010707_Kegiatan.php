@@ -19,7 +19,11 @@ class Kegiatan extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => '25',
             ],
-            'nama_kegiatan' => [
+            'tahun_anggaran' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '11',
+            ],
+            'uraian_detail_akun' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
             ],

@@ -8,7 +8,7 @@ class KegiatanModel extends Model
 {
     protected $table      = 'kegiatan';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['kode_mata_anggaran', 'nama_kegiatan', 'satuan_kegiatan_id', 'honor', 'bulan_bayar', 'subjectmatter_id', 'jadwal_mulai', 'jadwal_akhir'];
+    protected $allowedFields = ['kode_mata_anggaran', 'tahun_anggaran', 'uraian_detail_akun', 'satuan_kegiatan_id', 'honor', 'bulan_bayar', 'subjectmatter_id', 'jadwal_mulai', 'jadwal_akhir'];
 
     // Dates
     protected $useTimestamps = true;
