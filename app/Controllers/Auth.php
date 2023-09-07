@@ -26,7 +26,7 @@ class Auth extends BaseController
                 return redirect()->to('/auth');
             } else{
                 $user_data = [
-                    'user_id' => $user['iduser'],
+                    'user_id' => $user['id'],
                     'user_email' => $user['email']
                 ];
                 session()->set($user_data);

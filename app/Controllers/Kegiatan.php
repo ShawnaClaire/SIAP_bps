@@ -31,8 +31,9 @@ class Kegiatan extends BaseController
     {
         $this->kegiatanModel->save([
             'kode_mata_anggaran' => $this->request->getVar('kode_mata_anggaran'),
-            'nama_kegiatan' => $this->request->getVar('namakegiatan'),
+            'tahun_anggaran' => $this->request->getVar('tahunanggaran'),
             'kode_mata_anggaran' => $this->request->getVar('kodemataanggaran'),
+            'uraian_detail_akun' => $this->request->getVar('uraiandetailakun'),
             'satuan_kegiatan_id' => $this->request->getVar('satuankegiatan'),
             'honor' => $this->request->getVar('honor'),
             'bulan_bayar' => $this->request->getVar('bulanbayar'),

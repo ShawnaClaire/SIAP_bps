@@ -17,7 +17,7 @@ class Dashboard extends BaseController
         $kegiatan = $this->kegiatanModel->findAll();
         $kegiatan_bulanini = [];
         foreach ($kegiatan as $k => $value) {
-            if(date('F',strtotime($value['jadwalmulai'])) == date('F')) {
+            if(date('F',strtotime($value['jadwal_mulai'])) == date('F')) {
                 array_push($kegiatan_bulanini, $value);
             }
         }

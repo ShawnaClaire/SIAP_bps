@@ -42,7 +42,7 @@
                 <tbody>\
                     <?php foreach ($mitra as $m) : ?>
                         <tr>
-                            <td><?= $m['idsobat']; ?></td>
+                            <td><?= $m['sobat_id']; ?></td>
                             <td><?= $m['nama']; ?></td>
                             <td><?= $m['nik']; ?></td>
                             <td><?= $m['alamat']; ?></td>
