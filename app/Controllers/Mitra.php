@@ -37,6 +37,24 @@ class Mitra extends BaseController
         return view('mitra/cek-mitra', $data);
     }
 
+
+    // CEK MITRA
+
+    public function getAlokasiMitraAjax(){
+        if ($this->request->getVar('action')) {
+            $action = $this->request->getVar('action');
+
+            if ($action == 'get_mitra') {
+                $kegiatan = $this->kegiatanModel->where('tahun', $this->request->getVar('tahun'))
+                ->findAll();
+
+                return json_encode($kegiatan);
+            }
+        }
+    }
+
+    // END OF CEK MITRA
+
     public function export()
     {
         $mitra = $this->mitraModel->findAll();

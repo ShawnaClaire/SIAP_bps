@@ -31,6 +31,8 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 // $routes->get('/', 'Home::index');
 $routes->get('/', 'Dashboard::index', ['filter'=>'loginFilter']);
+$routes->get('/trydate', 'Dashboard::trydate', ['filter'=>'loginFilter']);
+$routes->get('/trydate2', 'Dashboard::trydate2', ['filter'=>'loginFilter']);
 
 $routes->get('/auth', 'Auth::index', ['filter'=>'authFilter']);
 $routes->post('/auth/login', 'Auth::login');
@@ -44,11 +46,17 @@ $routes->get('/mitra/export', 'Mitra::export', ['filter'=>'loginFilter']);
 $routes->get('/mitra/tambahmitra', 'Mitra::tambahmitra', ['filter'=>'loginFilter']);
 $routes->post('/mitra/import', 'Mitra::import', ['filter'=>'loginFilter']);
 $routes->post('/mitra/tambahmanual', 'Mitra::tambahmanual', ['filter'=>'loginFilter']);
+
 $routes->get('/mitra/alokasimitra', 'Mitra::alokasimitra', ['filter'=>'loginFilter']);
 // $routes->get('/mitra/fetchKegiatan', 'Mitra::fetchKegiatan', ['filter'=>'loginFilter']);
 $routes->post('/mitra/alokasiGetKegiatan', 'Mitra::alokasiGetKegiatan', ['filter'=>'loginFilter']);
 $routes->post('/mitra/tambahalokasimanual', 'Mitra::tambahalokasimanual', ['filter'=>'loginFilter']);
 $routes->post('/mitra/importAlokasi', 'Mitra::importAlokasi', ['filter'=>'loginFilter']);
+
+$routes->post('/mitra/getAlokasiMitraAjax', 'Mitra::getAlokasiMitraAjax', ['filter'=>'loginFilter']);
+
+
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing

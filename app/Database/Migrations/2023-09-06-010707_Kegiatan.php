@@ -27,17 +27,21 @@ class Kegiatan extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
             ],
+            'jenis_kegiatan_id' => [
+                'type'       => 'INT',
+                'constraint' => 11,
+            ],
             'satuan_kegiatan_id' => [
                 'type'           => 'INT',
                 'constraint'     => 11,
             ],
-            'honor' => [
+            'volume' => [
+                'type' => 'INT',
+                'constraint' => 255,
+            ],
+            'harga_satuan' => [
                 'type' => 'INT',
                 'constraint' => 11,
-            ],
-            'bulan_bayar' => [
-                'type' => 'INT',
-                'constraint' => 2,
             ],
             'subjectmatter_id' => [
                 'type' => 'INT',
@@ -49,6 +53,10 @@ class Kegiatan extends Migration
             ],
             'jadwal_akhir' => [
                 'type' => 'DATE'
+            ],
+            'bulan_bayar' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '255',
             ],
             'created_at' => [
                 'type' => 'DATETIME',
@@ -64,6 +72,7 @@ class Kegiatan extends Migration
         $this->forge->createTable('kegiatan');
         $this->forge->addForeignKey('subjectmatter_id', 'subjectmatter', 'id', 'CASCADE', 'SET NULL', 'subjectmatter_fk'); //on update CASCADE, on delete SET NULL
         $this->forge->addForeignKey('satuan_kegiatan_id', 'satuankegiatan', 'id', 'CASCADE', 'SET NULL', 'satuan_kegiatan_fk'); //on update CASCADE, on delete SET NULL
+        $this->forge->addForeignKey('jenis_kegiatan_id', 'jeniskegiatan', 'id', 'CASCADE', 'SET NULL', 'jenis_kegiatan_fk'); //on update CASCADE, on delete SET NULL
 
     }
 
