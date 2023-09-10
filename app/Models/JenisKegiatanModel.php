@@ -6,9 +6,9 @@ use CodeIgniter\Model;
 
 class SatuanKegiatanModel extends Model
 {
-    protected $table      = 'satuankegiatan';
+    protected $table      = 'jeniskegiatan';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['satuan_kegiatan'];
+    protected $allowedFields = ['jenis_kegiatan', 'sbml'];
     
     // Dates
     protected $useTimestamps = true;

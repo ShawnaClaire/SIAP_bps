@@ -33,4 +33,15 @@ class AlokasiModel extends Model
     // protected $afterFind      = [];
     // protected $beforeDelete   = [];
     // protected $afterDelete    = [];
+
+    public function getAlokasiFull(){
+        $builder = $this->db->table('alokasi');
+        $builder->select('*');
+        $builder->join('comments', 'comments.id = blogs.id');
+        $query = $builder->get();
+        /*
+         * Produces:
+         * SELECT * FROM blogs JOIN comments ON comments.id = blogs.id
+         */
+    }
 }
