@@ -85,9 +85,9 @@
                     <?php foreach ($kegiatan as $k) : ?>
                         <tr>
                             <td><?= $no++ ?></td>
-                            <td><?= $k['subjectmatter']; ?></td>
-                            <td><?= $k['namakegiatan']; ?></td>
-                            <td><?= $k['jadwalmulai']; ?> - <?= $k['jadwalakhir']; ?></td>
+                            <td><?= $k['subjectmatter_id']; ?></td>
+                            <td><?= $k['uraian_detail_akun']; ?></td>
+                            <td><?= $k['jadwal_mulai']; ?> - <?= $k['jadwal_akhir']; ?></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

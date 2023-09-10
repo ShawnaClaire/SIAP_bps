@@ -36,11 +36,10 @@
                                 <div class="col-8">
                                     <select id="subjectmatter" name="subjectmatter" class="form-select" required>
                                         <option value="" selected disabled>-- Pilih Subject Matter --</option>
-                                        <option value="1">Sosial</option>
-                                        <option value="2">Produksi</option>
-                                        <option value="3">Distribusi</option>
-                                        <option value="4">Neraca</option>
-                                        <option value="5">IPDS</option>
+                                        <?php foreach ($subjectmatter as $s) : ?>
+                                            <option value="<?= $s['id']; ?>"><?= $s['nama_subjectmatter']; ?></option>
+
+                                        <?php endforeach; ?>
                                     </select>
                                 </div>
                             </div>
@@ -53,7 +52,7 @@
                                     <input type="text" class="form-control" id="tahunanggaran" name="tahunanggaran" aria-describedby="tahunanggaran" required maxlength="4">
                                 </div>
                             </div>
-                            
+
                             <div class="row mb-3">
                                 <div class="col-4">
                                     <label for="kodemataanggaran" class="form-label">Kode Mata Anggaran</label>
@@ -74,49 +73,47 @@
 
                             <div class="row mb-3">
                                 <div class="col-4">
+                                    <label for="jeniskegiatan" class="form-label">Jenis Kegiatan</label>
+                                </div>
+                                <div class="col-8">
+                                    <select id="jeniskegiatan" name="jeniskegiatan" class="form-select" required>
+                                        <option value="" selected disabled>-- Pilih Jenis Kegiatan --</option>
+                                        <?php foreach ($jenis_kegiatan as $jk) : ?>
+                                            <option value="<?= $jk['id']; ?>"><?= $jk['jenis_kegiatan']; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-4">
                                     <label for="satuankegiatan" class="form-label">Satuan Kegiatan</label>
                                 </div>
                                 <div class="col-8">
                                     <select id="satuankegiatan" name="satuankegiatan" class="form-select" required>
                                         <option value="" selected disabled>-- Pilih Satuan Kegiatan --</option>
-                                        <option value="1">Dokumen</option>
-                                        <option value="2">Blok Sensus</option>
-                                        <option value="3">O-B</option>
-                                        <option value="4">O-K</option>
-                                        <option value="5">O-P</option>
+                                        <?php foreach ($satuan_kegiatan as $sk) : ?>
+                                            <option value="<?= $sk['id']; ?>"><?= $sk['satuan_kegiatan']; ?></option>
+                                        <?php endforeach; ?>
                                     </select>
                                 </div>
                             </div>
 
                             <div class="row mb-3">
                                 <div class="col-4">
-                                    <label for="honor" class="form-label">Honor</label>
+                                    <label for="volume" class="form-label">Volume</label>
                                 </div>
                                 <div class="col-8">
-                                    <input type="number" class="form-control" id="honor" name="honor" aria-describedby="honor" placeholder="Rp..." required>
+                                    <input type="number" class="form-control" id="volume" name="volume" aria-describedby="volume" placeholder="Volume..." required>
                                 </div>
                             </div>
 
                             <div class="row mb-3">
                                 <div class="col-4">
-                                    <label for="bulanbayar" class="form-label">Dibayarkan di Bulan</label>
+                                    <label for="hargasatuan" class="form-label">Harga Satuan</label>
                                 </div>
                                 <div class="col-8">
-                                    <select id="bulanbayar" name="bulanbayar" class="form-select" required>
-                                        <option value="" selected disabled>-- Pilih Bulan --</option>
-                                        <option value="1">Januari</option>
-                                        <option value="2">Februari</option>
-                                        <option value="3">Maret</option>
-                                        <option value="4">April</option>
-                                        <option value="5">Mei</option>
-                                        <option value="6">Juni</option>
-                                        <option value="7">Juli</option>
-                                        <option value="8">Agustus</option>
-                                        <option value="9">September</option>
-                                        <option value="10">Oktober</option>
-                                        <option value="11">November</option>
-                                        <option value="12">Desember</option>
-                                    </select>
+                                    <input type="number" class="form-control" id="hargasatuan" name="hargasatuan" aria-describedby="hargasatuan" placeholder="Rp..." required>
                                 </div>
                             </div>
 
@@ -137,6 +134,22 @@
                                     <input type="date" class="form-control" id="jadwalakhir" name="jadwalakhir" aria-describedby="jadwalakhir" required>
                                 </div>
                             </div>
+
+                            <div class="row mb-5">
+                                <div class="col-4">
+                                    <label for="bulanbayar" class="form-label">Bulan Bayar</label>
+                                </div>
+                                <div class="col-8 d-flex flex-wrap justify-content-evenly  align-items-start">
+                                    <?php foreach ($month as $key => $value) : ?>
+                                        <div class=" col-6 col-md-4">
+                                            <input class="form-check-input" type="checkbox" value="<?= $key; ?>" id="bulanbayar" name="bulanbayar[]">
+                                            <label class="form-check-label" for="bulanbayar"><?= $value; ?></label>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+
+
                         </div>
 
                         <div class="d-flex justify-content-end gap-3">
