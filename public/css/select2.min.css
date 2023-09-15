@@ -1,15 +1,33 @@
+/* added */
+.select2 {
+  width: 100% !important;
+}
+
 .select2-container {
   box-sizing: border-box;
   display: inline-block;
   margin: 0;
   position: relative;
   vertical-align: middle;
+
+  /* Custom Style */
+  padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #212529;
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  border-radius: 0.375rem;
+  width: 100%;
+  word-wrap: normal;
 }
 .select2-container .select2-selection--single {
   box-sizing: border-box;
   cursor: pointer;
   display: block;
-  height: 28px;
+  /* edited */
+  /* height: 28px; */
+  height: 1.5;
   user-select: none;
   -webkit-user-select: none;
 }
@@ -156,14 +174,17 @@
 }
 .select2-container--default .select2-selection--single {
   background-color: #fff;
-  border: 1px solid #aaa;
+  /* edited */
+  /* border: 1px solid #aaa; */
   border-radius: 4px;
 }
 .select2-container--default
   .select2-selection--single
   .select2-selection__rendered {
   color: #444;
-  line-height: 28px;
+
+  /* edited */
+  line-height: 1.5;
 }
 .select2-container--default
   .select2-selection--single

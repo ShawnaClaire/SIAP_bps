@@ -30,6 +30,12 @@ class Mitra extends BaseController
 
     public function index()
     {
+        $keg = $this->validasiVolume('1', '3');
+
+        dd($keg);
+
+
+
         $data = [
             'title' => 'Cek Mitra',
             'mitra' => $this->mitraModel->findAll()
@@ -38,22 +44,23 @@ class Mitra extends BaseController
     }
 
 
-    // CEK MITRA
-
-    public function getAlokasiMitraAjax(){
+    // >> CEK MITRA <<
+    public function getAlokasiMitraAjax()
+    {
         if ($this->request->getVar('action')) {
             $action = $this->request->getVar('action');
 
             if ($action == 'get_mitra') {
                 $kegiatan = $this->kegiatanModel->where('tahun', $this->request->getVar('tahun'))
-                ->findAll();
+                    ->findAll();
 
                 return json_encode($kegiatan);
             }
         }
     }
+    // >> END OF CEK MITRA <<
 
-    // END OF CEK MITRA
+
 
     public function export()
     {
@@ -200,9 +207,24 @@ class Mitra extends BaseController
         $data = [
             'title' => 'Alokasi Mitra',
             'mitra' => $this->mitraModel->findAll(),
-            'posisi' => $this->posisiModel->findAll()
+            'posisi' => $this->posisiModel->findAll(),
+            'tahun' => $this->kegiatanModel->getUniqueYear(),
+            'counter' => 0
         ];
         return view('mitra/alokasi-mitra', $data);
+    }
+
+    public function alokasiGetBulanBayar()
+    {
+        if ($this->request->getVar('action')) {
+            $action = $this->request->getVar('action');
+
+            if ($action == 'get_bulanbayar') {
+                $kegiatan = $this->kegiatanModel->where('id', $this->request->getVar('kegiatan'))->first();
+                $bulanbayar = explode(",", $kegiatan['bulan_bayar']);
+                return json_encode($bulanbayar);
+            }
+        }
     }
 
     public function alokasiGetKegiatan()
@@ -214,6 +236,152 @@ class Mitra extends BaseController
                 $kegiatan = $this->kegiatanModel->where('tahun_anggaran', $this->request->getVar('tahun'))->findAll();
 
                 return json_encode($kegiatan);
+            }
+        }
+    }
+
+    public function alokasiGetInfoKegiatan()
+    {
+        if ($this->request->getVar('action')) {
+            $action = $this->request->getVar('action');
+
+            if ($action == 'get_infokegiatan') {
+                $kegiatan = $this->kegiatanModel->where('id', $this->request->getVar('kegiatan_id'))->first();
+                $alokasi = $this->alokasiModel->where('kegiatan_id', $this->request->getVar('kegiatan_id'))->findAll();
+
+                $volume_teralokasi = 0;
+                foreach ($alokasi as $a) {
+                    $volume_teralokasi += $a['beban_kerja'];
+                }
+
+
+                $data = [
+                    'volume_total' => $kegiatan['volume'],
+                    'volume_belum_teralokasi' => $kegiatan['volume'] - $volume_teralokasi,
+                    'harga_satuan' => $kegiatan['harga_satuan'],
+                    'satuan_kegiatan_id' => $kegiatan['satuan_kegiatan_id']
+                ];
+                // dd($data);
+                return json_encode($data);
+            }
+        }
+    }
+
+    public function addalokasi()
+    {
+        $mitra = $this->request->getVar('mitra');
+
+        for ($i = 0; $i < count($mitra); $i++) {
+            $data = [
+                'tahun' => $this->request->getVar('tahun'),
+                'kegiatan_id' => $this->request->getVar('kegiatan'),
+                'sobat_id' => $this->request->getVar('mitra')[$i],
+                'beban_kerja' => $this->request->getVar('bebankerja')[$i],
+                'posisi_id' => $this->request->getVar('posisi')[$i],
+                'bulan_bayar_mitra' => $this->request->getVar('bulanbayar')[$i],
+                'honor' => $this->request->getVar('honor')[$i]
+            ];
+
+            $this->alokasiModel->save($data);
+        }
+
+        session()->setFlashdata('message', '<div class="alert alert-success mt-3" role="alert">
+    Alokasi berhasil ditambahkan </div>');
+        return redirect()->to('/mitra/alokasimitra');
+    }
+
+    public function getAlokasi()
+    {
+        if ($this->request->getVar('action')) {
+            $action = $this->request->getVar('action');
+
+            if ($action == 'get_alokasi') {
+                $tahun = $this->request->getVar('tahun');
+                $mitra = $this->request->getVar('mitra');
+                $bulan_bayar = $this->request->getVar('bulan_bayar');
+                $kegiatan_id = $this->request->getVar('kegiatan_id');
+
+                // $alokasi = $this->alokasiModel->where('tahun', $tahun)->where('sobat_id', $mitra)->where('bulan_bayar_mitra', $bulan_bayar)->findAll();
+
+                $alokasi = $this->alokasiModel->getMitraSBML($tahun, $bulan_bayar, $mitra);
+
+                $total_honor = 0;
+                $arr_sbml = [];
+
+                foreach ($alokasi as $a) {
+                    if ($a['satuan_kegiatan_id'] != "3") { //satuan kegiatan bukan O-B
+                        $total_honor += $a['honor'];
+                        array_push($arr_sbml, $a['sbml']);
+                    }
+                }
+
+                if (count($arr_sbml) != 0) {
+                    $keg = $this->kegiatanModel->getSBML($kegiatan_id);
+                    $keg_sbml = $keg[0]['sbml'];
+                    if ($keg[0]['satuan_kegiatan_id'] != "3") {
+                        array_push($arr_sbml, $keg_sbml);
+                        $sbml = max($arr_sbml);
+                    } else {
+                        $keg = $this->kegiatanModel->getSBML($kegiatan_id);
+                        $sbml = $keg[0]['sbml'];
+                    }
+                } else {
+                    $keg = $this->kegiatanModel->getSBML($kegiatan_id);
+                    $sbml = $keg[0]['sbml'];
+                }
+
+                $data = [
+                    'total_honor' => $total_honor,
+                    'sbml_mitra' => $sbml
+                ];
+
+                return json_encode($data);
+            }
+        }
+    }
+
+    public function getAllAlokasi()
+    {
+        if ($this->request->getVar('action')) {
+            $action = $this->request->getVar('action');
+
+            if ($action == 'get_alokasiAll') {
+                $tahun = $this->request->getVar('tahun');
+                $mitra = $this->request->getVar('mitra');
+                $bulan_bayar = $this->request->getVar('bulan_bayar');
+
+                $alokasi = $this->alokasiModel->getMitraSBML($tahun, $bulan_bayar, $mitra);
+                $keg = count($alokasi);
+
+                return json_encode($keg);
+            }
+        }
+    }
+
+    public function getAlokasiOB()
+    {
+        if ($this->request->getVar('action')) {
+            $action = $this->request->getVar('action');
+
+            if ($action == 'get_alokasiOB') {
+                $tahun = $this->request->getVar('tahun');
+                $mitra = $this->request->getVar('mitra');
+                $bulan_bayar = $this->request->getVar('bulan_bayar');
+
+                $alokasi = $this->alokasiModel->getMitraSBML($tahun, $bulan_bayar, $mitra);
+
+                $arr_satuankegiatan = [];
+
+                foreach ($alokasi as $a) {
+                    if ($a['satuan_kegiatan_id'] == '3') {
+                        array_push($arr_satuankegiatan, $a['satuan_kegiatan_id']);
+                    }
+                }
+
+                $OB = count($arr_satuankegiatan);
+
+
+                return json_encode($OB);
             }
         }
     }
@@ -235,64 +403,131 @@ class Mitra extends BaseController
     }
 
 
+
+    public function validasiVolume($kegiatan_id, $volume_bebankerja)
+    {
+        $kegiatan = $this->kegiatanModel->where('id', $kegiatan_id)->first();
+        $alokasi = $this->alokasiModel->where('kegiatan_id', $kegiatan_id)->findAll();
+
+        $volume_teralokasi = 0;
+        foreach ($alokasi as $a) {
+            $volume_teralokasi += $a['beban_kerja'];
+        }
+        // dd('volume teralokasi', $volume_teralokasi);
+
+        if ($volume_bebankerja > ($kegiatan['volume'] - $volume_teralokasi)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public function getMitraAlokasiInfo($tahun, $bulan_bayar, $mitra, $kegiatan_id)
+    {
+        $alokasi = $this->alokasiModel->getMitraSBML($tahun, $bulan_bayar, $mitra);
+
+        $total_honor = 0;
+        $arr_sbml = [];
+
+        foreach ($alokasi as $a) {
+            if ($a['satuan_kegiatan_id'] != "3") { //satuan kegiatan bukan O-B
+                $total_honor += $a['honor'];
+                array_push($arr_sbml, $a['sbml']);
+            }
+        }
+
+        if (count($arr_sbml) != 0) {
+            $keg = $this->kegiatanModel->getSBML($kegiatan_id);
+            $keg_sbml = $keg[0]['sbml'];
+            if ($keg[0]['satuan_kegiatan_id'] != "3") {
+                array_push($arr_sbml, $keg_sbml);
+                $sbml = max($arr_sbml);
+            } else {
+                $keg = $this->kegiatanModel->getSBML($kegiatan_id);
+                $sbml = $keg[0]['sbml'];
+            }
+        } else {
+            $keg = $this->kegiatanModel->getSBML($kegiatan_id);
+            $sbml = $keg[0]['sbml'];
+        }
+
+        $data = [
+            'total_honor' => $total_honor,
+            'sbml_mitra' => $sbml
+        ];
+
+        return $data;
+    }
+
     public function importAlokasi()
     {
         $file = $this->request->getFile('alokasi_excel');
         $extension = $file->getClientExtension();
 
         if ($extension == 'xlsx' || $extension == 'xls') {
-
             if ($extension == 'xls') {
                 $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
             } else {
                 $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
             }
-
             $spreadsheet = $reader->load($file);
             $alokasi = $spreadsheet->getActiveSheet()->toArray();
 
             $err_msg = [];
+            $volume = 0;
+
+            $alokasi_db = $this->alokasiModel->findAll();
+
             foreach ($alokasi as $key => $value) {
-                $alokasi_db = $this->alokasiModel->findAll();
                 $err = [];
 
-                if ($key == 0) {
+                if ($key == 0) { //table header
                     continue;
                 }
-                $data = [
-                    'tahun' => $this->request->getVar('tahun_excel'),
-                    'kegiatan_id' => $this->request->getVar('kegiatan_excel'),
-                    'sobat_id' => $value[0],
-                    'beban_kerja' => $value[1],
-                    'posisi_id' => $value[2]
-                ];
 
-                foreach ($alokasi_db as $key => $value) {
-                    if ($value['tahun'] == $data['tahun'] AND $value['kegiatan_id'] == $data['kegiatan_id'] AND $value['sobat_id'] == $data['sobat_id']) {
-                        array_push($err, "duplicate");
-                        array_push($err_msg, "duplicate");
-                    }
-                }
+                $volume += $value[1];
 
-                if (empty($err)) {
-                    $this->alokasiModel->insert($data);
-                }
+                // $data = [
+                //     'tahun' => $this->request->getVar('tahun_excel'),
+                //     'kegiatan_id' => $this->request->getVar('kegiatan_excel'),
+                //     'sobat_id' => $value[0],
+                //     'beban_kerja' => $value[1],
+                //     'posisi_id' => $value[2]
+                // ];
+
+                // foreach ($alokasi_db as $key => $value) {
+                //     if ($value['tahun'] == $data['tahun'] and $value['kegiatan_id'] == $data['kegiatan_id'] and $value['sobat_id'] == $data['sobat_id']) {
+                //         array_push($err, "duplicate");
+                //         array_push($err_msg, "duplicate");
+                //     }
+                // }
+
+                // if (empty($err)) {
+                //     $this->alokasiModel->insert($data);
+                // }
             }
 
-            if (empty($err_msg)) {
-                $alokasi_baru = count($alokasi) - 1;
-                session()->setFlashdata('message', '<div class="alert alert-success mt-3" role="alert">
-            ' . $alokasi_baru . ' alokasi baru berhasil ditambahkan </div>');
-                return redirect()->to('/mitra/alokasimitra');
-            } else {
-                $alokasi_baru = count($alokasi) - count($err_msg) - 1;
-                $alokasi_duplikat = count($err_msg);
 
-                $str1 = $alokasi_baru . ' alokasi baru berhasil ditambahkan' . ', ' . $alokasi_duplikat . ' alokasi lainnya sudah ada di database';
+            // validasi volume beban kerja
+            $status_volume = $this->validasiVolume($this->request->getVar('kegiatan_excel'), $volume);
+            $status_totalhonor = "";
+            $status_kegiatanOB = "";
 
-                session()->setFlashdata('message', '<div class="alert alert-success mt-3" role="alert">' . $str1 . '</div>');
-                return redirect()->to('/mitra/alokasimitra');
-            }
+            // if (empty($err_msg)) {
+            //     $alokasi_baru = count($alokasi) - 1;
+            //     session()->setFlashdata('message', '<div class="alert alert-success mt-3" role="alert">
+            // ' . $alokasi_baru . ' alokasi baru berhasil ditambahkan </div>');
+            //     return redirect()->to('/mitra/alokasimitra');
+            // } else {
+            //     $alokasi_baru = count($alokasi) - count($err_msg) - 1;
+            //     $alokasi_duplikat = count($err_msg);
+
+            //     $str1 = $alokasi_baru . ' alokasi baru berhasil ditambahkan' . ', ' . $alokasi_duplikat . ' alokasi lainnya sudah ada di database';
+
+            //     session()->setFlashdata('message', '<div class="alert alert-success mt-3" role="alert">' . $str1 . '</div>');
+            //     return redirect()->to('/mitra/alokasimitra');
+            // }
+
         } else {
             session()->setFlashdata('message', '<div class="alert alert-danger mt-3" role="alert">
             Format file tidak sesuai </div>');

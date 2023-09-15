@@ -54,6 +54,14 @@ $routes->post('/mitra/tambahalokasimanual', 'Mitra::tambahalokasimanual', ['filt
 $routes->post('/mitra/importAlokasi', 'Mitra::importAlokasi', ['filter'=>'loginFilter']);
 
 $routes->post('/mitra/getAlokasiMitraAjax', 'Mitra::getAlokasiMitraAjax', ['filter'=>'loginFilter']);
+$routes->post('/mitra/alokasiGetBulanBayar', 'Mitra::alokasiGetBulanBayar', ['filter'=>'loginFilter']);
+$routes->post('/mitra/addalokasi', 'Mitra::addalokasi', ['filter'=>'loginFilter']);
+$routes->post('/mitra/alokasiGetInfoKegiatan', 'Mitra::alokasiGetInfoKegiatan', ['filter'=>'loginFilter']);
+$routes->post('/mitra/getAlokasi', 'Mitra::getAlokasi', ['filter'=>'loginFilter']);
+$routes->post('/mitra/getAlokasiOB', 'Mitra::getAlokasiOB', ['filter'=>'loginFilter']);
+$routes->post('/mitra/getAllAlokasi', 'Mitra::getAllAlokasi', ['filter'=>'loginFilter']);
+
+
 
 
 
