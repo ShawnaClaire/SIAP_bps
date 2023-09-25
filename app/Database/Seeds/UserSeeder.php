@@ -15,6 +15,7 @@ class UserSeeder extends Seeder
                 'role_id' => 1,
                 'email' => 'fadhilla@bps.go.id',
                 'password' => '12345',
+                'kode_satker'=> '3671',
                 'created_at' => Time::now(),
                 'updated_at' => Time::now()
             ],
@@ -22,6 +23,7 @@ class UserSeeder extends Seeder
                 'role_id' => 2,
                 'email' => 'sosial@bps.go.id',
                 'password' => '12345',
+                'kode_satker'=> '3671',
                 'created_at' => Time::now(),
                 'updated_at' => Time::now()
             ]

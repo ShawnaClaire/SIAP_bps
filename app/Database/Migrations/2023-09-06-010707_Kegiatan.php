@@ -15,6 +15,11 @@ class Kegiatan extends Migration
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
+            'kode_satker' => [
+                'type' => 'VARCHAR',
+                'constraint' => '4',
+                'NULL' => true
+            ],
             'kode_mata_anggaran' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '25',
@@ -73,6 +78,7 @@ class Kegiatan extends Migration
         $this->forge->addForeignKey('subjectmatter_id', 'subjectmatter', 'id', 'CASCADE', 'SET NULL', 'subjectmatter_fk'); //on update CASCADE, on delete SET NULL
         $this->forge->addForeignKey('satuan_kegiatan_id', 'satuankegiatan', 'id', 'CASCADE', 'SET NULL', 'satuan_kegiatan_fk'); //on update CASCADE, on delete SET NULL
         $this->forge->addForeignKey('jenis_kegiatan_id', 'jeniskegiatan', 'id', 'CASCADE', 'SET NULL', 'jenis_kegiatan_fk'); //on update CASCADE, on delete SET NULL
+        $this->forge->addForeignKey('kode_satker', 'satker', 'kode_satker', 'CASCADE', 'SET NULL', 'satker_fk'); //on update CASCADE, on delete SET NULL
 
     }
 
