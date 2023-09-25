@@ -35,6 +35,14 @@ class Alokasi extends Migration
                 'type'           => 'INT',
                 'constraint'     => 11
             ],
+            'bulan_bayar_mitra' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '2',
+            ],
+            'honor' => [
+                'type'           => 'INT',
+                'constraint'     => 255
+            ],
             'created_at' => [
                 'type' => 'DATETIME',
                 'NULL' => true,

@@ -12,25 +12,24 @@ class KegiatanModel extends Model
 
     // Dates
     protected $useTimestamps = true;
-    // protected $dateFormat    = 'datetime';
-    protected $createdField  = 'created_at';
-    protected $updatedField  = 'updated_at';
-    // protected $deletedField  = 'deleted_at';
+    
+    public function getUniqueYear(){
+        $builder = $this->db->table('kegiatan');
+        $builder->select('tahun_anggaran');
+        $builder->distinct();
+        $query = $builder->get()->getResultArray();
 
-    // Validation
-    // protected $validationRules      = [];
-    // protected $validationMessages   = [];
-    // protected $skipValidation       = false;
-    // protected $cleanValidationRules = true;
+        return $query;
+    }
 
-    // Callbacks
-    // protected $allowCallbacks = true;
-    // protected $beforeInsert   = [];
-    // protected $afterInsert    = [];
-    // protected $beforeUpdate   = [];
-    // protected $afterUpdate    = [];
-    // protected $beforeFind     = [];
-    // protected $afterFind      = [];
-    // protected $beforeDelete   = [];
-    // protected $afterDelete    = [];
+    public function getSBML($kegiatan_id){
+        $builder = $this->db->table('kegiatan');
+        $builder->where('kegiatan.id', $kegiatan_id);
+        $builder->select('*');
+        $builder->join('jeniskegiatan', 'jeniskegiatan.id = kegiatan.jenis_kegiatan_id');
+        $query = $builder->get()->getResultArray();
+
+        return $query;
+    }
+
 }
