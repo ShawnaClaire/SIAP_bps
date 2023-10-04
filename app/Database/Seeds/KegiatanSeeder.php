@@ -12,6 +12,7 @@ class KegiatanSeeder extends Seeder
     {
         $data = [
             [
+                'kode_satker' => '3671',
                 'kode_mata_anggaran' => '2905.BMA.004.005.A.521213',
                 'tahun_anggaran' => '2022',
                 'uraian_detail_akun' => 'Pencacahan Sakernas 2022',
@@ -27,6 +28,7 @@ class KegiatanSeeder extends Seeder
                 'updated_at' => Time::now()
             ],
             [
+                'kode_satker' => '3671',
                 'kode_mata_anggaran' => '2905.BMA.004.005.A.521213',
                 'tahun_anggaran' => '2022',
                 'uraian_detail_akun' => 'Pengolahan Sakernas 2022',
@@ -42,6 +44,7 @@ class KegiatanSeeder extends Seeder
                 'updated_at' => Time::now()
             ],
             [
+                'kode_satker' => '3671',
                 'kode_mata_anggaran' => '2905.BMA.004.005.A.521213',
                 'tahun_anggaran' => '2023',
                 'uraian_detail_akun' => 'Pencacahan Sakernas 2023',
@@ -57,6 +60,7 @@ class KegiatanSeeder extends Seeder
                 'updated_at' => Time::now()
             ],
             [
+                'kode_satker' => '3671',
                 'kode_mata_anggaran' => '2905.BMA.004.005.A.521213',
                 'tahun_anggaran' => '2023',
                 'uraian_detail_akun' => 'Pemeriksaan Sakernas 2023',
@@ -72,6 +76,7 @@ class KegiatanSeeder extends Seeder
                 'updated_at' => Time::now()
             ],
             [
+                'kode_satker' => '3604',
                 'kode_mata_anggaran' => '2905.BMA.004.005.A.521213',
                 'tahun_anggaran' => '2023',
                 'uraian_detail_akun' => 'Pengolahan Sakernas 2023',
@@ -87,6 +92,7 @@ class KegiatanSeeder extends Seeder
                 'updated_at' => Time::now()
             ],
             [
+                'kode_satker' => '3671',
                 'kode_mata_anggaran' => '2905.BMA.004.005.A.521213',
                 'tahun_anggaran' => '2023',
                 'uraian_detail_akun' => 'Pencacahan ST2023',
@@ -102,6 +108,7 @@ class KegiatanSeeder extends Seeder
                 'updated_at' => Time::now()
             ],
             [
+                'kode_satker' => '3671',
                 'kode_mata_anggaran' => '2905.BMA.004.005.A.521213',
                 'tahun_anggaran' => '2023',
                 'uraian_detail_akun' => 'Pengolahan ST2023',
