@@ -15,5 +15,6 @@ class AllSeeder extends Seeder
         $this->call('PosisiSeeder');
         $this->call('JenisKegiatanSeeder');
         $this->call('KegiatanSeeder');
+        $this->call('SatuanKerjaSeeder');
     }
 }

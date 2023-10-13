@@ -54,6 +54,13 @@ $routes->post('/mitra/tambahalokasimanual', 'Mitra::tambahalokasimanual', ['filt
 $routes->post('/mitra/importAlokasi', 'Mitra::importAlokasi', ['filter'=>'loginFilter']);
 
 $routes->post('/mitra/getAlokasiMitraAjax', 'Mitra::getAlokasiMitraAjax', ['filter'=>'loginFilter']);
+$routes->post('/mitra/getInfoMitraAjax', 'Mitra::getInfoMitraAjax', ['filter'=>'loginFilter']);
+$routes->get('/mitra/detailAlokasiMitra/(:alphanum)/(:alphanum)/(:alphanum)/(:num)/(:num)', 'Mitra::detailAlokasiMitra/$1/$2/$3/$4/$5', ['filter'=>'loginFilter']);
+$routes->get('/mitra/editDataAlokasi/(:num)', 'Mitra::editDataAlokasi/$1');
+$routes->post('/mitra/simpanEditAlokasi', 'Mitra::simpanEditAlokasi', ['filter'=>'loginFilter']);
+$routes->post('/mitra/hapusAlokasi', 'Mitra::hapusAlokasi', ['filter'=>'loginFilter']);
+
+
 $routes->post('/mitra/alokasiGetBulanBayar', 'Mitra::alokasiGetBulanBayar', ['filter'=>'loginFilter']);
 $routes->post('/mitra/addalokasi', 'Mitra::addalokasi', ['filter'=>'loginFilter']);
 $routes->post('/mitra/alokasiGetInfoKegiatan', 'Mitra::alokasiGetInfoKegiatan', ['filter'=>'loginFilter']);

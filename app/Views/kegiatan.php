@@ -142,8 +142,8 @@
                                 <div class="col-8 d-flex flex-wrap justify-content-evenly  align-items-start">
                                     <?php foreach ($month as $key => $value) : ?>
                                         <div class=" col-6 col-md-4">
-                                            <input class="form-check-input" type="checkbox" value="<?= $key; ?>" id="bulanbayar" name="bulanbayar[]">
-                                            <label class="form-check-label" for="bulanbayar"><?= $value; ?></label>
+                                            <input class="form-check-input" type="checkbox" value="<?= $key; ?>" id="bulanbayar<?= $key; ?>" name="bulanbayar[]">
+                                            <label class="form-check-label" for="bulanbayar<?= $key; ?>"><?= $value; ?></label>
                                         </div>
                                     <?php endforeach; ?>
                                 </div>

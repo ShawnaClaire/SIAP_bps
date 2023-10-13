@@ -135,11 +135,10 @@
     </div>
 
 
-
     <div class="mt-4 alokasiexcel-container">
         <h3>Upload Excel</h3>
         <p>Tambah alokasi dengan mengunggah file excel.</p>
-        <a href="<?= base_url('template_excel/template alokasi.xlsx'); ?>" class="btn btn-success">Download Template</a>
+        <a href="<?= base_url('template_excel/template alokasi.xlsx'); ?>" class="btn btn-success">Unduh Template</a>
 
 
         <form action="/mitra/importAlokasi" method="post" enctype="multipart/form-data">
@@ -173,10 +172,23 @@
                         <label for="kegiatan_excel" class="form-label">Kegiatan</label>
                     </div>
                     <div class="col-9 col-sm-8 col-md-6">
-                        <select id="kegiatan_excel" name="kegiatan_excel" class="form-select" required>
-                            <option value="" selected disabled>-- Pilih Kegiatan --</option>
-                        </select>
+                        <div class="mb-2">
+                            <select id="kegiatan_excel" name="kegiatan_excel" class="form-select" required>
+                                <option value="" selected disabled>-- Pilih Kegiatan --</option>
+                            </select>
+                        </div>
+                        <div class="fw-bold">
+                            <div id="volume_keg_info" class="d-flex gap-2 px-2 py-1 mb-0 alert alert-primary" role="alert" style="visibility: hidden;">
+                                <div class="col-9">
+                                    Volume kegiatan belum teralokasi:
+                                </div>
+                                <div id="volume_value" class="col-3">
+                                    00/00
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
 
                 <div class="row mb-3">
@@ -190,7 +202,7 @@
 
 
                 <div class="d-flex justify-content-end gap-3 col-12 col-sm-11 col-md-9">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button id="submitexcel" type="submit" class="btn btn-primary" disabled>Submit</button>
                 </div>
 
             </div>
@@ -200,7 +212,7 @@
 </div>
 
 
-
+<!-- JS for Alokasi Manual -->
 <script>
     var totalhonor_error_msg = {};
     var OB_error_msg = {};
@@ -1012,13 +1024,6 @@
             bebanKerjaValidate();
         });
 
-
-        // UPLOAD EXCEL
-        $('#tahun_excel').select2();
-        $('#kegiatan_excel').select2();
-        alokasiExcel();
-
-
         var counter = 1;
         $('.add-item-btn').click(function(e) {
             // e.preventDefault();
@@ -1036,6 +1041,57 @@
         $(row_item).remove();
         bebanKerjaValidate();
     })
+</script>
+
+<!-- JS for Alokasi Excel -->
+<script>
+    function getInfoKegiatanExcel() {
+        var kegiatan = $('#kegiatan_excel').val();
+        var action = 'get_infokegiatan';
+
+        if (kegiatan != '') {
+            $.ajax({
+                url: "<?= site_url('mitra/alokasiGetInfoKegiatan'); ?>",
+                type: "POST",
+                async: false,
+                data: {
+                    kegiatan_id: kegiatan,
+                    action: action
+                },
+                dataType: "JSON",
+                success: function(data) {
+                    if (data['volume_belum_teralokasi'] == 0) {
+                        $('#volume_keg_info').removeClass("alert-primary");
+                        $('#volume_keg_info').addClass("alert-danger");
+                        $('#volume_value').html(data['volume_belum_teralokasi'] + "/" + data['volume_total']);
+                        $('#submitexcel').prop("disabled", true);
+                    } else {
+                        $('#volume_keg_info').removeClass("alert-danger");
+                        $('#volume_keg_info').addClass("alert-primary");
+                        $('#volume_value').html(data['volume_belum_teralokasi'] + "/" + data['volume_total']);
+                        $('#submitexcel').prop("disabled", false);
+                    }
+
+                },
+                error: function(xhr, thrownError) {
+                    alert("Error" + xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                }
+            });
+        }
+
+    }
+
+    $(document).ready(function() {
+        // UPLOAD EXCEL
+        $('#tahun_excel').select2();
+        $('#kegiatan_excel').select2();
+        alokasiExcel();
+
+        $('#kegiatan_excel').change(function() {
+            $('#volume_keg_info').css('visibility', 'visible');
+            getInfoKegiatanExcel();
+        })
+    });
 </script>
 
 <?= $this->endSection(); ?>
