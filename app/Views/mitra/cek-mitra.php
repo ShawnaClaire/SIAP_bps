@@ -16,45 +16,9 @@
             <div class="col-9 col-sm-8 col-md-6">
                 <select id="tahun" name="tahun" class="form-select" required>
                     <option value="" selected disabled>-- Pilih Tahun --</option>
-                    <option value="2015">2015</option>
-                    <option value="2016">2016</option>
-                    <option value="2017">2017</option>
-                    <option value="2018">2018</option>
-                    <option value="2019">2019</option>
-                    <option value="2020">2020</option>
-                    <option value="2021">2021</option>
-                    <option value="2022">2022</option>
-                    <option value="2023">2023</option>
-                    <option value="2024">2024</option>
-                    <option value="2025">2025</option>
-                    <option value="2026">2026</option>
-                    <option value="2027">2027</option>
-                    <option value="2028">2028</option>
-                    <option value="2029">2029</option>
-                    <option value="2030">2030</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="row mb-3">
-            <div class="col-3">
-                <label for="bulan" class="form-label">Bulan</label>
-            </div>
-            <div class="col-9 col-sm-8 col-md-6">
-                <select id="bulan" name="bulan" class="form-select" required>
-                    <option value="" selected disabled>-- Pilih Bulan --</option>
-                    <option value="1">Januari</option>
-                    <option value="2">Februari</option>
-                    <option value="3">Maret</option>
-                    <option value="4">April</option>
-                    <option value="5">Mei</option>
-                    <option value="6">Juni</option>
-                    <option value="7">Juli</option>
-                    <option value="8">Agustus</option>
-                    <option value="9">September</option>
-                    <option value="10">Oktober</option>
-                    <option value="11">November</option>
-                    <option value="12">Desember</option>
+                    <?php foreach ($tahun as $t) : ?>
+                        <option value="<?= $t['tahun_anggaran']; ?>"><?= $t['tahun_anggaran']; ?></option>
+                    <?php endforeach; ?>
                 </select>
             </div>
         </div>
@@ -64,7 +28,7 @@
                 <label for="mitra" class="form-label">Mitra</label>
             </div>
             <div class="col-9 col-sm-8 col-md-6">
-                <select id="mitra" name="mitra" class="form-select" required>
+                <select id="mitra" name="mitra" class="form-select" required disabled>
                     <option value="" selected disabled>-- Pilih Mitra --</option>
                     <?php foreach ($mitra as $m) : ?>
                         <option value="<?= $m['sobat_id']; ?>"><?= $m['sobat_id']; ?>, <?= $m['nama']; ?></option>
@@ -83,58 +47,108 @@
             <i class="fas fa-table me-1"></i>
             Data Mitra
         </div>
-        <div class="card-body">
-            <div id="identitasMitra" style="display: none;">
+        <div id="data-card" class="card-body">
+            <div id="identitasMitra">
                 <div class="row fw-bold">
                     <div class="col-4 col-md-3">Nama Mitra</div>
-                    <div class="col-8">: [Nama mitra]</div>
+                    <div id="namamitra-view" class="col-8">: [Nama mitra]</div>
                 </div>
                 <div class="row fw-bold">
-                    <div class="col-4 col-md-3">Tahun</div>
-                    <div class="col-8">: [Tahun]</div>
-                </div>
-                <div class="row fw-bold">
-                    <div class="col-4 col-md-3">Bulan</div>
-                    <div class="col-8">: [Bulan]</div>
+                    <div class="col-4 col-md-3">Sobat ID</div>
+                    <div id="sobatid-view" class="col-8">: [Sobat ID]</div>
                 </div>
             </div>
 
-            <div class="mt-3 d-flex gap-4">
-                <a href="<?= base_url('mitra/export'); ?>" class="btn btn-primary"><i class="fa-solid fa-file-arrow-down fa-xl me-2"></i>Download</a>
-            </div>
-
-            <table id="datatablesSimple">
+            <table id="tabel_alokasi_mitra" class="table table-bordered mt-4">
                 <thead>
                     <tr>
-                        <th>ID Sobat</th>
-                        <th>Nama Mitra</th>
-                        <th>NIK</th>
-                        <th>Alamat</th>
-                        <th>Email</th>
-                        <th>Jenis Kelamin</th>
+                        <th>Bulan</th>
+                        <th>Honor Teralokasi</th>
+                        <th>Alokasi Tersedia</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <!-- <tfoot>
                     <tr>
-                        <th>ID Sobat</th>
-                        <th>Nama Mitra</th>
-                        <th>NIK</th>
-                        <th>Alamat</th>
-                        <th>Email</th>
-                        <th>Jenis Kelamin</th>
+                        <th>Bulan</th>
+                        <th>Honor Teralokasi</th>
+                        <th>Alokasi Tersedia</th>
+                        <th>Aksi</th>
                     </tr>
                 </tfoot> -->
-                <tbody>\
-                    <?php foreach ($mitra as $m) : ?>
-                        <tr>
-                            <td><?= $m['sobat_id']; ?></td>
-                            <td><?= $m['nama']; ?></td>
-                            <td><?= $m['nik']; ?></td>
-                            <td><?= $m['alamat']; ?></td>
-                            <td><?= $m['email']; ?></td>
-                            <td><?= $m['jenis_kelamin']; ?></td>
-                        </tr>
-                    <?php endforeach; ?>
+                <tbody>
+                    <tr id='row1'>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr id='row2'>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr id='row3'>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr id='row4'>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr id='row5'>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr id='row6'>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr id='row7'>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr id='row8'>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr id='row9'>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr id='row10'>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr id='row11'>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr id='row12'>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
 
                 </tbody>
             </table>
@@ -145,79 +159,190 @@
 
 
 <script>
-    function getMitra() {
-        $('#tahun').change(function() {
+    function convertMonth(month) {
+        switch (month) {
+            case "1":
+                month = "Januari";
+                return (month);
+                break;
+            case "2":
+                month = "Februari";
+                return (month);
+                break;
+            case "3":
+                month = "Maret";
+                return (month);
+                break;
+            case "4":
+                month = "April";
+                return (month);
+                break;
+            case "5":
+                month = "Mei";
+                return (month);
+                break;
+            case "6":
+                month = "Juni";
+                return (month);
+                break;
+            case "7":
+                month = "Juli";
+                return (month);
+                break;
+            case "8":
+                month = "Agustus";
+                return (month);
+                break;
+            case "9":
+                month = "September";
+                return (month);
+                break;
+            case "10":
+                month = "Oktober";
+                return (month);
+                break;
+            case "11":
+                month = "November";
+                return (month);
+                break;
+            case "12":
+                month = "Desember";
+                return (month);
+                break;
 
-            $('#bulan').prop("disabled", false);
-            $('#bulan').change(function() {
-
-                $('#mitra').prop("disabled", false);
-                
-                var tahun = $('#tahun').val();
-                var bulan = $('#bulan').val();
-                var action = 'get_mitra';
-
-
-                if ((tahun != '') && (bulan != '')) {
-                // alert(tahun);
-                $.ajax({
-                    url: "<?= site_url('mitra/getAlokasiMitraAjax'); ?>",
-                    type: "POST",
-                    data: {
-                        tahun: tahun,
-                        bulan: bulan,
-                        action: action
-                    },
-                    dataType: "JSON",
-                    success: function(data) {
-                        // alert(success);
-                        var html = '<option value="" selected disabled>--Pilih Mitra--</option>';
-                        for (let index = 0; index < data.length; index++) {
-                            html += '<option value="' + data[index].sobat_id + '">' + data[index].sobat_id + ', '+ data[index].nama + '</option>';
-                        }
-
-                        $('#mitra').html(html);
-
-                    },
-                    error: function(xhr, thrownError) {
-                        alert("Error" + xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
-                    }
-                });
-            } else {
-                $('#mitra').val('');
-            }
-
-            })
-
-            // alert(action);
-
-
-            
-        })
+            default:
+                break;
+        }
     }
 
+    
+    function getAlokasiMitra() {
+        var tahun = $('#tahun').val();
+        var mitra = $('#mitra').val();
+        // alert('tahun:' + $('#tahun').val() + " mitra:" + $('#mitra').val())
+
+        var action = 'get_alokasi_mitra';
+
+        $.ajax({
+            url: "<?= site_url('mitra/getAlokasiMitraAjax'); ?>",
+            type: "POST",
+            async: false,
+            data: {
+                tahun: tahun,
+                mitra: mitra,
+                action: action
+            },
+            dataType: "JSON",
+            success: function(data) {
+                var html = '';
+                var i = 1;
+
+                for (let index = 0; index < data.length; index++) {
+                    var persentase_honor_teralokasi = Math.round(data[index].honor_teralokasi/data[index].sbml_mitra*100);
+
+                    var bulan = convertMonth(String(data[index].bulan));
+
+                    if (data[index].honor_teralokasi == 0) {
+                        $('#row' + String(i)).html(
+                            "<td>" + bulan + "</td>" +
+                            "<td>" + "-" + "</td>" +
+                            "<td>" + "-" + "</td>" +
+                            "<td>" + `<button class="btn btn-secondary" onclick='seeDetail(`+ data[index].bulan + `,`+ data[index].honor_teralokasi + `,` + data[index].sbml_mitra + `)' disabled>Detail</button>` + "</td>"
+                        );
+
+                    } else {
+                        if(persentase_honor_teralokasi >= 60 && persentase_honor_teralokasi < 80){
+                            $('#row' + String(i)).html(
+                                "<td>" + bulan + "</td>" +
+                                "<td> Rp" + data[index].honor_teralokasi + `<div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                    <div class="progress-bar bg-warning" style="width: `+persentase_honor_teralokasi+`%">`+persentase_honor_teralokasi+`%</div>
+                                </div>` + "</td>" +
+                                "<td> Rp" + data[index].alokasi_tersedia + "</td>" +
+                                "<td>" + `<div class="btn btn-primary" onclick='seeDetail(`+ data[index].bulan + `,`+ data[index].honor_teralokasi + `,` + data[index].sbml_mitra + `)'>Detail</div>` + "</td>"
+                            );
+                        } else if(persentase_honor_teralokasi >= 80){
+                            $('#row' + String(i)).html(
+                                "<td>" + bulan + "</td>" +
+                                "<td> Rp" + data[index].honor_teralokasi + `<div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                    <div class="progress-bar bg-danger" style="width: `+persentase_honor_teralokasi+`%">`+persentase_honor_teralokasi+`%</div>
+                                </div>` + "</td>" +
+                                "<td> Rp" + data[index].alokasi_tersedia + "</td>" +
+                                "<td>" + `<div class="btn btn-primary" onclick='seeDetail(`+ data[index].bulan + `,`+ data[index].honor_teralokasi + `,` + data[index].sbml_mitra + `)'>Detail</div>` + "</td>"
+                            );
+                        } else{
+                            $('#row' + String(i)).html(
+                                "<td>" + bulan + "</td>" +
+                                "<td> Rp" + data[index].honor_teralokasi + `<div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                    <div class="progress-bar bg-success" style="width: `+persentase_honor_teralokasi+`%">`+persentase_honor_teralokasi+`%</div>
+                                </div>` + "</td>" +
+                                "<td> Rp" + data[index].alokasi_tersedia + "</td>" +
+                                "<td>" + `<div class="btn btn-primary" onclick='seeDetail(`+ data[index].bulan + `,`+ data[index].honor_teralokasi + `,` + data[index].sbml_mitra + `)'>Detail</div>` + "</td>"
+                            );
+                        }
+                    }
+
+                    i++;
+
+
+                }
+
+            },
+            error: function(xhr, thrownError) {
+                alert("Error" + xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+            }
+        });
+    }
+
+    function printMitraInfo(){
+        var sobat_id = $('#mitra').val();
+
+        var action = 'get_info_mitra';
+
+        $.ajax({
+            url: "<?= site_url('mitra/getInfoMitraAjax'); ?>",
+            type: "POST",
+            async: false,
+            data: {
+                sobat_id: sobat_id,
+                action: action
+            },
+            dataType: "JSON",
+            success: function(data) {
+                // alert(data.sobat_id + " " + data.nama);
+                $('#namamitra-view').html(": " + data.nama);
+                $('#sobatid-view').html(": " + data.sobat_id);
+
+            },
+            error: function(xhr, thrownError) {
+                alert("Error" + xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+            }
+        });
+    }
+
+    function seeDetail(bulan, honorteralokasi, sbml){
+        location.href = "<?= base_url('mitra/detailAlokasiMitra/'); ?>" + $('#mitra').val() + "/" + $('#tahun').val() + "/" + bulan + "/" + honorteralokasi + "/" + sbml;
+    }
 
     $(document).ready(function() {
         var tahun = $('#tahun').val();
-        var bulan = $('#bulan').val();
         var mitra = $('#mitra').val();
 
         $('#tahun').select2();
-        $('#bulan').select2();
         $('#mitra').select2();
 
-        if (tahun == null) {
-            $('#bulan').prop("disabled", true);
-            $('#mitra').prop("disabled", true);
-        }
+        $('#mitra').change(function() {
+            var mitra = $('#mitra').html();
+            var data_mitra = mitra.split(', ');
+            printMitraInfo();
+            getAlokasiMitra();
+        });
 
-        getMitra();
-
-        // alert(tahun + " " + bulan + " " + mitra)
-
-        // if(tahun==null && bulan==null && mitra==null){
-        //     $('#identitasMitra').html("");
-        // }
+        $('#tahun').change(function() {
+            $('#mitra').prop('disabled', false);
+            if ($('#mitra').val() != null) {
+                getAlokasiMitra();
+            }
+        });
 
 
     });
