@@ -40,6 +40,9 @@ $routes->get('/auth/logout', 'Auth::logout');
 
 $routes->get('/kegiatan', 'Kegiatan::index', ['filter'=>'loginFilter']);
 $routes->post('/kegiatan/save', 'Kegiatan::save', ['filter'=>'loginFilter']);
+$routes->post('/kegiatan/saveedit', 'Kegiatan::saveedit', ['filter'=>'loginFilter']);
+$routes->post('/kegiatan/hapusKegiatan', 'Kegiatan::hapusKegiatan', ['filter'=>'loginFilter']);
+$routes->get('/kegiatan/editDataAlokasi/(:num)', 'Kegiatan::editDataAlokasi/$1', ['filter'=>'loginFilter']);
 
 $routes->get('/mitra', 'Mitra::index', ['filter'=>'loginFilter']);
 $routes->get('/mitra/export', 'Mitra::export', ['filter'=>'loginFilter']);
