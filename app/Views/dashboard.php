@@ -85,7 +85,14 @@
                     <?php foreach ($kegiatan as $k) : ?>
                         <tr>
                             <td><?= $no++ ?></td>
-                            <td><?= $k['subjectmatter_id']; ?></td>
+                            <td><?php
+                                foreach ($subjectmatter as $key => $value) {
+                                    if ($k['subjectmatter_id'] == $value['id']) {
+                                        echo ($value['nama_subjectmatter']);
+                                    }
+                                }
+                                ?>
+                                </td>
                             <td><?= $k['uraian_detail_akun']; ?></td>
                             <td><?= $k['jadwal_mulai']; ?> - <?= $k['jadwal_akhir']; ?></td>
                         </tr>

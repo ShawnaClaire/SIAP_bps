@@ -5,10 +5,12 @@ namespace App\Controllers;
 class Dashboard extends BaseController
 {
     protected $kegiatanModel;
+    protected $subjectmatterModel;
 
     public function __construct()
     {
         $this->kegiatanModel = new \App\Models\KegiatanModel();
+        $this->subjectmatterModel = new \App\Models\SubjectmatterModel();
         
     }
 
@@ -24,7 +26,8 @@ class Dashboard extends BaseController
 
         $data = [
             'title' => 'Dashboard',
-            'kegiatan' => $kegiatan_bulanini
+            'kegiatan' => $kegiatan_bulanini,
+            'subjectmatter' => $this->subjectmatterModel->findAll(),
         ];
         
         return view('dashboard', $data);

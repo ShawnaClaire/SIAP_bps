@@ -178,7 +178,7 @@
                         <th>Subject Matter</th>
                         <th>Uraian Detail Akun</th>
                         <th>Jadwal</th>
-                        <th>Jumlah Petugas Mitra</th>
+                        <!-- <th>Jumlah Petugas Mitra</th> -->
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -205,11 +205,11 @@
                                     }
                                 }
                                 ?>
-                                <?= $k['subjectmatter_id']; ?>
+                                
                             </td>
                             <td><?= $k['uraian_detail_akun']; ?></td>
                             <td><?= $k['jadwal_mulai']; ?> - <?= $k['jadwal_akhir']; ?></td>
-                            <td>jumlah mitra</td>
+                            <!-- <td>jumlah mitra</td> -->
                             <td>
                                 <div class="d-flex flex-row gap-3 justify-content-center">
                                     <!-- edit button -->
@@ -243,7 +243,7 @@
             <div class="modal-body">
                 <form action="/kegiatan/saveedit" method="post">
                     <?= csrf_field(); ?>
-                    <input type="text" id="id_kegiatan_edit" name="id_kegiatan_edit">
+                    <input type="hidden" id="id_kegiatan_edit" name="id_kegiatan_edit">
 
                     <div class="mb-3">
                         <div class="row mb-3">
@@ -518,7 +518,7 @@
 
                         if (bln_byr_alokasi.length != 0) {
                             for (let j = 0; j < bln_byr_alokasi.length; j++) {
-                                alert(bln_byr_alokasi[j]);
+                                // alert(bln_byr_alokasi[j]);
                                 if (bln_byr_alokasi[j] == bln_byr[i]) { //ada alokasi untuk bulan bayar tersebut 
                                     $(`#bulanbayar_edit` + bln_byr[i]).css('pointer-events', 'none');
                                     $(`#bulanbayar_edit_label` + bln_byr[i]).css('pointer-events', 'none');
